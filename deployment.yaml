@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tms
+  name: tms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tms
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: tms
+    spec:
+      containers:
+      - image: tms-image:latest
+        name: tms-image
+        imagePullPolicy: Never
+        resources: {}
+status: {}
