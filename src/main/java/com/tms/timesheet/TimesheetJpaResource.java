@@ -2,6 +2,9 @@ package com.tms.timesheet;
 
 import java.net.URI;
 import java.util.Date;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,14 +32,15 @@ import com.tms.service.TimesheetService;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class TimesheetJpaResource {
-
+	
+	private static final Logger logger = LogManager.getLogger(TimesheetJpaResource.class);
+	
+	@Autowired
 	private TimesheetService timesheetService;
 
-	@Autowired
-	public TimesheetJpaResource(TimesheetService timesheetService) {
+	/*public TimesheetJpaResource(TimesheetService timesheetService) {
 		this.timesheetService = timesheetService;
-	}
-
+	}*/
 	@GetMapping("/jpa/timesheets")
 	public PagedModel<?> getAllEmployeesTimesheetsBySearch(
 			@RequestParam(required = false) String username,
@@ -46,6 +50,8 @@ public class TimesheetJpaResource {
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
 
+		logger.info("retrive request all timesheets ");
+		
 		// String username = null;
 		String formattedStartDate = null;
 		String formattedEndDate = null;
@@ -53,17 +59,15 @@ public class TimesheetJpaResource {
 		if (startDate != null && endDate != null) {
 			formattedStartDate = formatter.format(startDate);
 			formattedEndDate = formatter.format(endDate);
-
-			System.out.println("formatted start date " + formattedStartDate);
-			System.out.println("formatted end date " + formattedEndDate);
-
+			//System.out.println("formatted start date " + formattedStartDate);
+			//System.out.println("formatted end date " + formattedEndDate);
 		}
 
 		Sort sort = Sort.by(Direction.DESC, "login_date");
 		PageRequest pageRequest = PageRequest.of(page, size, sort);
 		Page<Timesheet> pageResult = this.timesheetService.getAllEmployeesTimesheets(username, formattedStartDate,
 				formattedEndDate, project, pageRequest);
-
+		logger.info("retrived all timesheets ");
 		return new PagedModel<>(pageResult);
 	}
 
@@ -74,6 +78,7 @@ public class TimesheetJpaResource {
 			@RequestParam(required = false) String project,
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size) {
+		logger.info("retrive request for user timesheets ");
 
 		String formattedStartDate = null;
 		String formattedEndDate = null;
@@ -88,12 +93,15 @@ public class TimesheetJpaResource {
 		PageRequest pageRequest = PageRequest.of(page, size, sort);
 		Page<Timesheet> pageResult = this.timesheetService.getAllTimesheets(username, formattedStartDate,
 				formattedEndDate, project, pageRequest);
+		logger.info("retrive response for user timesheets ");
+
 		return new PagedModel<>(pageResult);
 
 	}
 
 	@GetMapping("/jpa/users/{username}/timesheets/{id}")
 	public TimesheetDTO getTimesheet(@PathVariable String username, @PathVariable Long id) {
+		logger.info("retrive request user timesheet "+id);
 		TimesheetDTO timesheetDTO = new TimesheetDTO();
 		Timesheet timesheet = this.timesheetService.getTimesheet(id);
 		timesheetDTO.setId(timesheet.getId());
@@ -103,6 +111,8 @@ public class TimesheetJpaResource {
 		timesheetDTO.setToTime(timesheet.getToTime());
 		timesheetDTO.setLoggedHr(timesheet.getLoggedHr());
 		timesheetDTO.setUsername(timesheet.getUsername());
+		logger.info("retrive response for user timesheet "+timesheetDTO);
+
 		return timesheetDTO;
 	}
 
@@ -126,6 +136,7 @@ public class TimesheetJpaResource {
 	@PostMapping("/jpa/users/{username}/timesheets")
 	public ResponseEntity<Void> createTimesheet(@PathVariable String username, @RequestBody TimesheetDTO timesheetDTO) {
 
+		logger.info("create request for timesheet");
 		System.out.println("from Time " + timesheetDTO.getFromTime());
 		System.out.println("to Time " + timesheetDTO.getToTime());
 
@@ -135,6 +146,9 @@ public class TimesheetJpaResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(createdTimesheet.getId()).toUri();
 
+
+		logger.info("create response for timesheet: "+createdTimesheet);
+		
 		return ResponseEntity.created(uri).build();
 	}
 

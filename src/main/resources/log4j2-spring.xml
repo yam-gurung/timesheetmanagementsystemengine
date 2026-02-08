@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration>
+    <Appenders>
+    	<Console name="console" target="SYSTEM_OUT">
+    		<PatternLayout pattern="%style{%d{ISO8601}} %highlight{%-5level }[%style{%t}{bright,blue}]
+              %style{%C{10}}{bright,yellow}: %msg%n%throwable"/>
+    	</Console>
+        <SplunkHttp
+              name="httpconf"
+              url="https://localhost:8088"
+              token="14d7802d-3949-4ea2-b06b-389da97cf035"
+              host="localhost"
+              index="java_splunk_hec_index"
+              type="raw"
+              source="timesheetmanagementsystem"
+              sourceType="log4j"
+              messageFormat="text"
+              disableCertificateValidation="true"
+                >
+            <PatternLayout pattern="%m"/>
+        </SplunkHttp>
+
+    </Appenders>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="httpconf"/>
+            </Root>
+    </Loggers>
+</Configuration>

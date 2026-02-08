@@ -20,14 +20,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 @Service
 public class TimesheetServiceImpl implements TimesheetService {
 
+	@Autowired
 	private TimesheetJpaRepository timesheetJpaRepository;
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
+	/*@Autowired
 	public TimesheetServiceImpl(TimesheetJpaRepository timesheetJpaRepository) {
 		this.timesheetJpaRepository = timesheetJpaRepository;
-	}
+	}*/
 
 	public List<Timesheet> getAllTimesheets() {
 		Sort sort = Sort.by(Direction.DESC, "loginDate");
