@@ -26,3 +26,10 @@ create new role
 
 curl -X POST localhost:8081/jpa/roles -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoieWFtIiwiaWF0IjoxNzc2MjY2NzU2LCJleHAiOjE3NzY4NzE1NTZ9.2hJzzKvaMk3nMIn8nCAFnzc3afdvlQswZIYU_OAxVaQtyb6Ek6HFlIyj0H8GvENcXN2gvBqSR-T_pLIflJY7LQ" -H 'Content-type:application/json' -d '{"id":0,"roleName":"ROLE_APPROVER5","description": "ROLE APPROVER5"}'
 
+delete a role role id 6 and 8
+
+curl -X DELETE localhost:8081/jpa/roles/8 -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoieWFtIiwiaWF0IjoxNzc2MjY2NzU2LCJleHAiOjE3NzY4NzE1NTZ9.2hJzzKvaMk3nMIn8nCAFnzc3afdvlQswZIYU_OAxVaQtyb6Ek6HFlIyj0H8GvENcXN2gvBqSR-T_pLIflJY7LQ"
+
+query for role id 6 and 8 and need to get not found response
+
+curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoieWFtIiwiaWF0IjoxNzc2MjY2NzU2LCJleHAiOjE3NzY4NzE1NTZ9.2hJzzKvaMk3nMIn8nCAFnzc3afdvlQswZIYU_OAxVaQtyb6Ek6HFlIyj0H8GvENcXN2gvBqSR-T_pLIflJY7LQ" -H "Accept: application/json" localhost:8081/jpa/roles/6
