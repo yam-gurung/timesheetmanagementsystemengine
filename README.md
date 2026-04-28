@@ -44,3 +44,14 @@ curl -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIi
 curl -X PUT localhost:8081/jpa/roles/7 -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoieWFtIiwiaWF0IjoxNzc2MjY2NzU2LCJleHAiOjE3NzY4NzE1NTZ9.2hJzzKvaMk3nMIn8nCAFnzc3afdvlQswZIYU_OAxVaQtyb6Ek6HFlIyj0H8GvENcXN2gvBqSR-T_pLIflJY7LQ" -H 'Content-type:application/json' -d '{"id":7,"roleName":"ROLE_UAT","description":"ROLE UAT"}'
 
 curl -X PUT localhost:8081/jpa/roles/9 -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJST0xFX1VTRVIiXSwic3ViIjoieWFtIiwiaWF0IjoxNzc2MjY2NzU2LCJleHAiOjE3NzY4NzE1NTZ9.2hJzzKvaMk3nMIn8nCAFnzc3afdvlQswZIYU_OAxVaQtyb6Ek6HFlIyj0H8GvENcXN2gvBqSR-T_pLIflJY7LQ" -H 'Content-type:application/json' -d '{"id":9,"roleName":"ROLE_QA","description":"ROLE QA"}'
+
+
+# stop postgres database
+
+sudo -u postgres /Library/PostgreSQL/17/bin/pg_ctl -D /Library/PostgreSQL/17/data stop
+
+# start postgres database
+
+sudo -u postgres ./pg_ctl -D /Library/PostgreSQL/17/data start
+
+
