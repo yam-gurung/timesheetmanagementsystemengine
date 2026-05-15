@@ -5,8 +5,7 @@ timesheetmanagementsystemengine backend
 
 to generate token
 
-curl -X POST localhost:8081/jpa/authenticate -H 'C
-ontent-type:application/json' -d '{"username":"user","password":"password"}'
+curl -X POST localhost:8081/jpa/authenticate -H 'Content-type:application/json' -d '{"username":"user","password":"password"}'
 
 
 to fetch roles data
