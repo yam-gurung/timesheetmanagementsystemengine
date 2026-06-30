@@ -1,7 +1,7 @@
 # timesheetmanagementsystemengine
 timesheetmanagementsystemengine backend
 
-# test apis using curl
+# test spring boot rest apis with jwt token using curl
 
 to generate token
 
